@@ -1,8 +1,8 @@
 const path = require('path')
 module.exports = {
-  version: "3.2",
+  version: "3.3",
   title: "MagicQuill",
-  description: "",
+  description: "[Windows NVIDIA ONLY] An intelligent, interactive Image Editing System. Easily erase and add objects on a user-friendly interface.",
   icon: "icon.png",
   menu: async (kernel, info) => {
     let installed = info.exists("app/env")
