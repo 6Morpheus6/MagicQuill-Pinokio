@@ -5,31 +5,66 @@ module.exports = {
       method: "shell.run",
       params: {
         message: [
-          "git clone https://github.com/ant-research/MagicQuill app",
+          "git clone --recursive https://github.com/ant-research/MagicQuill app",
         ]
       }
     },
-    // Delete this step if your project does not use torch
     {
+      method: "shell.run",
+      params: {
+        venv: "env",
+        path: "app",
+        message: [
+          "uv pip install gradio_magicquill-0.0.1-py3-none-any.whl",
+          "uv pip install -r requirements.txt"
+        ]
+      }
+    },
+    {
+      when: "{{platform === 'win32'}}",
+      method: "shell.run",
+      params: {
+        venv: "env",
+        path: "app",
+        message: [
+          "copy /Y pyproject.toml MagicQuill\\LLaVA\\",
+          "uv pip install -e MagicQuill\\LLaVA\\",
+//          "uv pip uninstall -y torch torchvision torchaudio"
+        ]
+      },
+        next: "torch"
+    },
+    {
+      when: "{{platform !== 'win32'}}",
+      method: "shell.run",
+      params: {
+        venv: "env",
+        path: "app",
+        message: [
+          "cp -f pyproject.toml MagicQuill/LLaVA/",
+          "uv pip install -e MagicQuill/LLaVA/",
+//          "uv pip uninstall -y torch torchvision torchaudio"
+        ]
+      }
+    },
+    {
+      id: "torch",
       method: "script.start",
       params: {
         uri: "torch.js",
         params: {
-          venv: "env",                // Edit this to customize the venv folder path
-          path: "app",                // Edit this to customize the path to start the shell from
-          // xformers: true   // uncomment this line if your project requires xformers
+          venv: "env",
+          path: "app",
+          // xformers: true
         }
       }
     },
-    // Edit this step with your custom install commands
     {
       method: "shell.run",
       params: {
-        venv: "env",                // Edit this to customize the venv folder path
-        path: "app",                // Edit this to customize the path to start the shell from
+        path: "app",
         message: [
-          "uv pip install gradio devicetorch",
-          "uv pip install -r requirements.txt"
+          "git clone https://huggingface.co/LiuZichen/MagicQuill-models models"
         ]
       }
     },
