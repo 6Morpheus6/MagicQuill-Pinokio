@@ -5,7 +5,7 @@ module.exports = {
       method: "shell.run",
       params: {
         message: [
-          "git clone --recursive https://github.com/ant-research/MagicQuill app",
+          "git clone --recursive https://github.com/6Morpheus6/MagicQuill app",
         ]
       }
     },
