@@ -60,11 +60,28 @@ module.exports = {
       }
     },
     {
-      method: "shell.run",
+      method: "hf.download",
       params: {
         path: "app",
-        message: [
-          "git clone https://huggingface.co/LiuZichen/MagicQuill-models models"
+        "_": [ "LiuZichen/MagicQuill-models" ],
+        "exclude": '".DS_Store" "*.md"',
+        "local-dir": "models",
+      }
+    },
+    {
+      "method": "fs.link",
+      "params": {
+        "drive": {
+          "checkpoints": "app/models/checkpoints/SD1.5",
+          "configs": "app/models/configs",
+          "controlnet": "app/models/controlnet"
+        },
+        "peers": [
+          "https://github.com/cocktailpeanut/fluxgym.git",
+          "https://github.com/cocktailpeanutlabs/automatic1111.git",
+          "https://github.com/cocktailpeanutlabs/fooocus.git",
+          "https://github.com/cocktailpeanutlabs/comfyui.git",
+          "https://github.com/pinokiofactory/stable-diffusion-webui-forge.git"
         ]
       }
     },
