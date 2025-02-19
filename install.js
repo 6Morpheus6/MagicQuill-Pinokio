@@ -27,6 +27,7 @@ module.exports = {
         venv: "env",
         path: "app",
         message: [
+          "mkdir models\\checkpoints\\SD1.5 models\\configs models\\controlnet",
           "copy /Y pyproject.toml MagicQuill\\LLaVA\\",
           "uv pip install -e MagicQuill\\LLaVA\\",
 //          "uv pip uninstall -y torch torchvision torchaudio"
@@ -41,6 +42,7 @@ module.exports = {
         venv: "env",
         path: "app",
         message: [
+          "mkdir -p models/checkpoints/SD1.5 models/configs models/controlnet",
           "cp -f pyproject.toml MagicQuill/LLaVA/",
           "uv pip install -e MagicQuill/LLaVA/",
 //          "uv pip uninstall -y torch torchvision torchaudio"
@@ -60,15 +62,6 @@ module.exports = {
       }
     },
     {
-      method: "hf.download",
-      params: {
-        path: "app",
-        "_": [ "LiuZichen/MagicQuill-models" ],
-        "exclude": '".DS_Store" "*.md"',
-        "local-dir": "models",
-      }
-    },
-    {
       "method": "fs.link",
       "params": {
         "drive": {
@@ -83,6 +76,15 @@ module.exports = {
           "https://github.com/cocktailpeanutlabs/comfyui.git",
           "https://github.com/pinokiofactory/stable-diffusion-webui-forge.git"
         ]
+      }
+    },
+    {
+      method: "hf.download",
+      params: {
+        path: "app",
+        "_": [ "LiuZichen/MagicQuill-models" ],
+        "exclude": '"*DS_Store" "*.md"',
+        "local-dir": "models",
       }
     },
     {
